@@ -6,104 +6,170 @@
   <title>Join the next session</title>
   <style>
     :root {
-      --green: #00A651;
-      --green-dark: #00843F;
-      --light: #F2F8F4;
-      --text: #1E1E1E;
-      --error: #C62828;
+      --bg: #1F1F1F;
+      --green: #5ED38C;
+      --green-dark: #4CC07A;
+      --white: #FFFFFF;
+      --muted: #BDBDBD;
+      --text-dark: #1F1F1F;
+      --error: #FF8A80;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
-      background: var(--light);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      padding: 24px 16px;
+      background: var(--bg);
+      color: var(--white);
+      padding: 16px;
     }
-    .card {
-      background: #fff;
-      max-width: 520px;
-      width: 100%;
+    .box {
+      max-width: 1120px;
+      border: 2px solid var(--green);
       border-radius: 12px;
-      border-top: 6px solid var(--green);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      padding: 28px 24px;
+      padding: 28px 26px;
     }
-    h1 { font-size: 1.4rem; margin: 0 0 8px; }
-    p  { margin: 0 0 20px; line-height: 1.5; }
-    label { display: block; font-weight: 600; margin-bottom: 6px; }
+    h1 {
+      color: var(--green);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 16px;
+    }
+    .intro {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0 0 14px;
+    }
+    .intro strong { font-weight: 700; }
+    .note {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+    .row {
+      display: flex;
+      gap: 12px;
+    }
+    .sr-only {
+      position: absolute;
+      left: -9999px;
+    }
     input[type="email"] {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    input[type="email"]:focus {
-      outline: 3px solid rgba(0,166,81,0.3);
-      border-color: var(--green);
-    }
-    button {
-      margin-top: 16px;
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      background: var(--green);
+      flex: 2;
+      min-width: 0;
+      padding: 10px 12px;
+      font-size: 0.95rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--text-dark);
+    }
+    input[type="email"]::placeholder { color: #9E9E9E; }
+    input[type="email"]:focus { outline: 3px solid var(--green); }
+    button {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      background: var(--green);
+      color: var(--text-dark);
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
     }
     button:hover { background: var(--green-dark); }
-    button:disabled { background: #9E9E9E; cursor: not-allowed; }
-    .msg { margin-top: 14px; font-weight: 600; min-height: 1.2em; }
-    .msg.ok { color: var(--green-dark); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .consent {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .consent input {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--green);
+      margin: 0 4px;
+    }
+    .msg {
+      margin-top: 12px;
+      min-height: 1.2em;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .msg.ok { color: var(--green); }
     .msg.err { color: var(--error); }
+
+    @media (max-width: 700px) {
+      .row { flex-direction: column; }
+    }
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>Not receiving the session invites?</h1>
-    <p>Share your email below and we'll add you to the invite list for the next session.</p>
+  <section class="box">
+    <h1>📩 Not receiving the session invites?</h1>
+
+    <p class="intro">
+      Would you like to <strong>join our Power-Up sessions</strong> but the invite never reaches your inbox?
+      Add your email in the box below and we'll include you in the <strong>next session</strong>.
+    </p>
+
+    <p class="note">
+      Please note: by sharing your email, you agree that it will be used only to send you invites
+      and updates about Power-Up sessions.
+    </p>
 
     <form id="joinForm" novalidate>
-      <label for="email">Your email</label>
-      <input type="email" id="email" name="email" placeholder="name@company.com" required />
-      <button type="submit" id="submitBtn">Add me to the next session</button>
+      <div class="row">
+        <label for="email" class="sr-only">Your email</label>
+        <input type="email" id="email" name="email" placeholder="your.name@signify.com" required />
+        <button type="submit" id="submitBtn">Add me to the next session</button>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="consent" />
+        I agree that my email is used only for session invites.
+      </label>
+
       <div id="msg" class="msg" aria-live="polite"></div>
     </form>
-  </main>
+  </section>
 
   <script>
     // Paste your Power Automate HTTP trigger URL here
-    const FLOW_URL = "(https://0458ee4aa906e0628640d9914f2d48.4c.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/17/workflows/bf650759845548daa201263c93371331/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=GQadXVKWVKpk-ap5jqZakCTxwbb4ukgtz9v1vKotIUM)";
+    const FLOW_URL = "PASTE_YOUR_POWER_AUTOMATE_URL_HERE";
 
     const form = document.getElementById("joinForm");
     const emailInput = document.getElementById("email");
+    const consent = document.getElementById("consent");
     const btn = document.getElementById("submitBtn");
     const msg = document.getElementById("msg");
+    const BTN_TEXT = "Add me to the next session";
 
     function showMsg(text, type) {
       msg.textContent = text;
-      msg.className = "msg " + type;
+      msg.className = "msg " + (type || "");
     }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = emailInput.value.trim().toLowerCase();
-      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-      if (!valid) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showMsg("Please enter a valid email address.", "err");
+        return;
+      }
+      if (!consent.checked) {
+        showMsg("Please tick the box to agree before sending.", "err");
         return;
       }
 
       btn.disabled = true;
       btn.textContent = "Sending...";
-      showMsg("", "");
+      showMsg("");
 
       try {
         const res = await fetch(FLOW_URL, {
@@ -112,19 +178,17 @@
           body: JSON.stringify({
             email: email,
             submittedAt: new Date().toISOString(),
-            source: "GitHub session sign-up"
+            source: "SharePoint session sign-up"
           })
         });
-
         if (!res.ok) throw new Error("Request failed");
-
-        showMsg("Thank you! You'll get the invite for the next session.", "ok");
+        showMsg("✅ Thank you! You'll get the invite for the next session.", "ok");
         form.reset();
       } catch (err) {
         showMsg("Something went wrong. Please try again later.", "err");
       } finally {
         btn.disabled = false;
-        btn.textContent = "Add me to the next session";
+        btn.textContent = BTN_TEXT;
       }
     });
   </script>
