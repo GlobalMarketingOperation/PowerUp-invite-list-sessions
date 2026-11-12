@@ -6,140 +6,128 @@
   <title>Join the next session</title>
   <style>
     :root {
-      --bg: #1F1F1F;
-      --green: #5ED38C;
-      --green-dark: #4CC07A;
+      --bg: #0F3D30;          /* same dark green as the SharePoint section */
+      --accent: #43D096;      /* green used in "POWER-UP: INSPIRATIONAL" */
+      --accent-dark: #36B581;
       --white: #FFFFFF;
-      --muted: #BDBDBD;
-      --text-dark: #1F1F1F;
-      --error: #FF8A80;
+      --muted: #CFE3DA;
+      --text-dark: #0F3D30;
+      --error: #FF9C8F;
     }
     * { box-sizing: border-box; }
-    body {
+    html, body {
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
       background: var(--bg);
+      font-family: "Segoe UI", Arial, sans-serif;
       color: var(--white);
-      padding: 16px;
     }
     .box {
-      max-width: 1120px;
-      border: 2px solid var(--green);
-      border-radius: 12px;
-      padding: 28px 26px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 18px 22px;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+    }
+    .text { flex: 1 1 45%; }
+    .eyebrow {
+      margin: 0 0 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--accent);
     }
     h1 {
-      color: var(--green);
-      font-size: 1.5rem;
+      margin: 0 0 4px;
+      font-size: 1.25rem;
       font-weight: 700;
-      margin: 0 0 16px;
     }
     .intro {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin: 0 0 14px;
-    }
-    .intro strong { font-weight: 700; }
-    .note {
-      font-size: 0.8rem;
-      line-height: 1.6;
-      color: var(--muted);
-      margin: 0 0 16px;
-    }
-    .row {
-      display: flex;
-      gap: 12px;
-    }
-    .sr-only {
-      position: absolute;
-      left: -9999px;
-    }
-    input[type="email"] {
-      flex: 2;
-      min-width: 0;
-      padding: 10px 12px;
-      font-size: 0.95rem;
-      border: none;
-      border-radius: 6px;
-      background: var(--white);
-      color: var(--text-dark);
-    }
-    input[type="email"]::placeholder { color: #9E9E9E; }
-    input[type="email"]:focus { outline: 3px solid var(--green); }
-    button {
-      flex: 1;
-      padding: 10px 16px;
+      margin: 0;
       font-size: 0.9rem;
-      font-weight: 700;
-      background: var(--green);
-      color: var(--text-dark);
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      line-height: 1.4;
+      color: var(--muted);
     }
-    button:hover { background: var(--green-dark); }
+    form { flex: 1 1 55%; }
+    .row { display: flex; gap: 10px; }
+    .sr-only { position: absolute; left: -9999px; }
+    input[type="email"] {
+      flex: 1;
+      min-width: 0;
+      padding: 9px 12px;
+      font-size: 0.9rem;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      background: var(--white);
+      color: #1F1F1F;
+    }
+    input[type="email"]:focus { outline: 2px solid var(--accent); }
+    button {
+      padding: 9px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: var(--accent);
+      color: var(--text-dark);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    button:hover { background: var(--accent-dark); }
     button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      min-height: 18px;
+    }
     .consent {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-top: 14px;
-      font-size: 0.8rem;
+      gap: 8px;
+      font-size: 0.75rem;
       color: var(--muted);
       cursor: pointer;
     }
-    .consent input {
-      width: 14px;
-      height: 14px;
-      accent-color: var(--green);
-      margin: 0 4px;
-    }
-    .msg {
-      margin-top: 12px;
-      min-height: 1.2em;
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-    .msg.ok { color: var(--green); }
+    .consent input { margin: 0; accent-color: var(--accent); }
+    .msg { font-size: 0.8rem; font-weight: 700; }
+    .msg.ok { color: var(--accent); }
     .msg.err { color: var(--error); }
 
-    @media (max-width: 700px) {
-      .row { flex-direction: column; }
+    @media (max-width: 760px) {
+      .box { flex-direction: column; align-items: stretch; gap: 14px; }
+      .row, .bottom { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
 <body>
   <section class="box">
-    <h1>📩 Not receiving the session invites?</h1>
-
-    <p class="intro">
-      Would you like to <strong>join our Power-Up sessions</strong> but the invite never reaches your inbox?
-      Add your email in the box below and we'll include you in the <strong>next session</strong>.
-    </p>
-
-    <p class="note">
-      Please note: by sharing your email, you agree that it will be used only to send you invites
-      and updates about Power-Up sessions.
-    </p>
+    <div class="text">
+      <p class="eyebrow">Power-Up: Session invites</p>
+      <h1>Not getting the session invites?</h1>
+      <p class="intro">Add your email and we'll include you in the next Power-Up session.</p>
+    </div>
 
     <form id="joinForm" novalidate>
       <div class="row">
         <label for="email" class="sr-only">Your email</label>
-        <input type="email" id="email" name="email" placeholder="your.name@signify.com" required />
-        <button type="submit" id="submitBtn">Add me to the next session</button>
+        <input type="email" id="email" placeholder="your.name@signify.com" required />
+        <button type="submit" id="submitBtn">Add me</button>
       </div>
-
-      <label class="consent">
-        <input type="checkbox" id="consent" />
-        I agree that my email is used only for session invites.
-      </label>
-
-      <div id="msg" class="msg" aria-live="polite"></div>
+      <div class="bottom">
+        <label class="consent">
+          <input type="checkbox" id="consent" />
+          I agree that my email is used only for Power-Up session invites.
+        </label>
+        <span id="msg" class="msg" aria-live="polite"></span>
+      </div>
     </form>
   </section>
 
   <script>
-    // Paste your Power Automate HTTP trigger URL here
     const FLOW_URL = "https://0458ee4aa906e0628640d9914f2d48.4c.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/17/workflows/bf650759845548daa201263c93371331/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=GQadXVKWVKpk-ap5jqZakCTxwbb4ukgtz9v1vKotIUM";
 
     const form = document.getElementById("joinForm");
@@ -147,7 +135,6 @@
     const consent = document.getElementById("consent");
     const btn = document.getElementById("submitBtn");
     const msg = document.getElementById("msg");
-    const BTN_TEXT = "Add me to the next session";
 
     function showMsg(text, type) {
       msg.textContent = text;
@@ -159,11 +146,11 @@
       const email = emailInput.value.trim().toLowerCase();
 
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showMsg("Please enter a valid email address.", "err");
+        showMsg("Please enter a valid email.", "err");
         return;
       }
       if (!consent.checked) {
-        showMsg("Please tick the box to agree before sending.", "err");
+        showMsg("Please tick the box first.", "err");
         return;
       }
 
@@ -182,13 +169,13 @@
           })
         });
         if (!res.ok) throw new Error("Request failed");
-        showMsg("✅ Thank you! You'll get the invite for the next session.", "ok");
+        showMsg("✅ Thank you! You're on the list.", "ok");
         form.reset();
       } catch (err) {
-        showMsg("Something went wrong. Please try again later.", "err");
+        showMsg("Something went wrong. Please try again.", "err");
       } finally {
         btn.disabled = false;
-        btn.textContent = BTN_TEXT;
+        btn.textContent = "Add me";
       }
     });
   </script>
